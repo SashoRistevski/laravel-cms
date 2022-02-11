@@ -10,23 +10,28 @@
                 <form method="post" action="{{ route('users.store') }}">
                         @csrf
                     <div class="form-control">
-                        <label for="name">Name</label>
-                        @if($errors->has('name'))
-                            <span class="btn-danger"> {{ $errors ->first('name') }}</span>
-                        @endif
-                        <input type="text" name="name" class="form-control">
+                        <label for="name">Name:</label>
+                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror">
+                        @error('name')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
+                        <label for="name">Email:</label>
+                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror">
+                        @error('email')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
 
-                        <label for="name">Email</label>
-                        @if($errors->has('email'))
-                            <span class="btn-danger"> {{ $errors ->first('email') }}</span>
-                        @endif
-                        <input type="email" name="email" class="form-control">
-
-                        <label for="name">Password:</label>
-                        @if($errors->has('password'))
-                            <span class="btn-danger"> {{ $errors ->first('password') }}</span>
-                        @endif
-                        <input type="password" name="password" class="form-control">
+                        <label for="password">Password:</label>
+                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror">
+                        @error('password')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
                     </div>
                         <div class="form-control">
                     <button type="submit" class="btn btn-primary">New User</button>

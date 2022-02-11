@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-2">
-                <a href="/users/create" class="btn btn-primary">Add user</a>
+                <a href="/admin/users/create" class="btn btn-primary">Add user</a>
             </div>
             <div class="col-10">
                 <table class="table table-striped">
@@ -25,9 +25,9 @@
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
                             <td>{{$user->created_at->diffForHumans()}}</td>
-                            <td><a href="/users/{{$user->id}}/edit" class="btn btn-warning">Edit</a></td>
+                            <td><a href="/admin/users/{{$user->id}}/edit" class="btn btn-warning">Edit</a></td>
                             <td>
-                                <form action="/users/{{$user->id}}/delete" method="post">
+                                <form action="/admin/users/{{$user->id}}/delete" method="post">
                                       @csrf
                                     @method('delete')
                                     <button class="btn btn-danger">Delete</button>
