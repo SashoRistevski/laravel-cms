@@ -29,6 +29,7 @@ Route::post('/users', [\App\Http\Controllers\UserController::class, 'store'])->n
 Route::get('/users/{id}/edit', [\App\Http\Controllers\UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/{id}', [\App\Http\Controllers\UserController::class, 'update'])->name('users.update');
 Route::delete('/users/{id}/delete', [\App\Http\Controllers\UserController::class, 'destroy'])->name('users.destroy');
+Route::get('/role', [\App\Http\Controllers\HomeController::class, 'checkRole'])->name('check.role');
 
 
 
