@@ -1,43 +1,66 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
 
-    <div class="container">
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="col-6">
+    <div class="row">
+        <div class="col-12">
+            <div class="card z-index-0 fadeIn3 fadeInBottom">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
+                        <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Add User</h4>
+                        <div class="row mt-3">
 
-                <form method="post" action="/users/ {{$user->id}}">
-                    @csrf
-                    @method('put')
-                    <div class="form-control">
-                        <label for="name">Name</label>
-                        @if($errors->has('name'))
-                            <span class="btn-danger"> {{ $errors ->first('name') }}</span>
-                        @endif
-                        <input type="text" name="name" class="form-control" value="{{$user->name}}">
-
-                        <label for="name">Email</label>
-                        @if($errors->has('email'))
-                            <span class="btn-danger"> {{ $errors ->first('email') }}</span>
-                        @endif
-                        <input type="email" name="email" class="form-control" value="{{$user->email}}">
-
-                        <label for="name">Password:</label>
-                        @if($errors->has('password'))
-                            <span class="btn-danger"> {{ $errors ->first('password') }}</span>
-                        @endif
-                        <input type="password" name="password" class="form-control">
+                        </div>
                     </div>
-                    <div class="form-control">
-                        <button type="submit" class="btn btn-primary">Update</button>
-                    </div>
-                </form>
+                </div>
+                <div class="card-body">
 
+                    <form role="form" class="text-start" method="post" action="/admin/users/{{ $user->id }}">
+                        @csrf
+                        @method('put')
+
+                        <div class="input-group input-group-outline my-3 ">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control" name="name" onfocus="focused(this)" onfocusout="defocused(this)" value="{{ $user->name }}">
+                        </div>
+
+
+
+
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" onfocus="focused(this)" onfocusout="defocused(this)" value="{{ $user->email }}">
+                        </div>
+
+
+
+                        <div class="input-group input-group-outline mb-3 ">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" name="password" onfocus="focused(this)" onfocusout="defocused(this)">
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="roles" class="col-md-4 control-label">Role</label>
+                            <div class="col-md-6">
+                                <select name="role_id" >
+                                    @foreach($roles as $role)
+
+                                        <option value="{{ $role->id }}" @if($role->id === $user->role_id) selected @endif> {{ $role->name }}</option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Update</button>
+                        </div>
+
+                    </form>
+                </div>
             </div>
         </div>
-
     </div>
-
 
 @endsection

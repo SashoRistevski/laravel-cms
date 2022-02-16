@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Role;
 
 class UserController extends Controller
 {
@@ -27,7 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        return view('admin.users.create', ['roles'=> Role::all()]);
 
     }
 
@@ -44,10 +45,11 @@ class UserController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|unique:users',
             'password' => 'required',
+            'role_id'=> 'required',
         ]);
 
         if ($validator->fails()) {
-            return redirect('users/create')
+            return redirect('admin/users/create')
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -55,11 +57,15 @@ class UserController extends Controller
         $name = $request->get('name');
         $email = $request->get('email');
         $password = $request->get('password');
+        $role_id = $request->get('role_id');
+
+
 
         User::create([
             'name'=> $name,
             'email'=> $email,
-            'password'=> bcrypt($password)
+            'password'=> bcrypt($password),
+            'role_id'=> $role_id
         ]);
 
         return redirect()->route('users.index');
@@ -90,8 +96,11 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::FindOrFail($id);
-        $data = [ 'user'=> $user];
+        $roles = Role::all();
+        $data = [ 'user'=> $user, 'roles'=> $roles];
         return view('admin.users.edit')->with($data);
+
+
     }
 
     /**
@@ -106,21 +115,28 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'email' => 'required|unique:users',
+            'role_id'=> 'required'
         ]);
+
 
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
         }
-            $user= User::FindOrFail($id);
+
+            $user = User::all()->Find($id);
 
             $input = $request->all();
+
+
+
 
             if ($request->has('password')) {
                 $input['password'] = bcrypt($request->get('password'));
             }
             $user->fill($input)->save();
+
 
             return redirect()->route('users.index');
 

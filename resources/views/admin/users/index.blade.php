@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
     <div class="container">
@@ -14,6 +14,8 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>Role</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
@@ -25,6 +27,8 @@
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
                             <td>{{$user->created_at->diffForHumans()}}</td>
+                            <td>{{$user->updated_at->diffForHumans()}}</td>
+                            <td>{{$user->role_id}}</td>
                             <td><a href="/admin/users/{{$user->id}}/edit" class="btn btn-warning">Edit</a></td>
                             <td>
                                 <form action="/admin/users/{{$user->id}}/delete" method="post">
