@@ -32,6 +32,9 @@ Route::group(['middleware'=> 'auth', 'prefix'=> 'admin'], function () {
     Route::get('/users/{id}/edit', [\App\Http\Controllers\UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{id}', [\App\Http\Controllers\UserController::class, 'update'])->name('users.update');
     Route::delete('/users/{id}/delete', [\App\Http\Controllers\UserController::class, 'destroy'])->name('users.destroy');
+    Route::resource('/categories', App\Http\Controllers\CategoriesController::class);
+    Route::get('/categories/{id}/delete', [App\Http\Controllers\CategoriesController::class, 'destroy'])->name('categories.delete');
+
 });
 
 

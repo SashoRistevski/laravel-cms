@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Role;
+use App\Models\Country;
 
 class UserController extends Controller
 {
@@ -28,7 +29,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create', ['roles'=> Role::all()]);
+        return view('admin.users.create', ['roles'=> Role::all(), 'countries'=>Country::all()]);
 
     }
 
@@ -46,6 +47,7 @@ class UserController extends Controller
             'email' => 'required|unique:users',
             'password' => 'required',
             'role_id'=> 'required',
+            'country_id'=> 'required',
         ]);
 
         if ($validator->fails()) {
@@ -58,6 +60,7 @@ class UserController extends Controller
         $email = $request->get('email');
         $password = $request->get('password');
         $role_id = $request->get('role_id');
+        $country_id = $request->get('country_id');
 
 
 
@@ -65,7 +68,8 @@ class UserController extends Controller
             'name'=> $name,
             'email'=> $email,
             'password'=> bcrypt($password),
-            'role_id'=> $role_id
+            'role_id'=> $role_id,
+            'country_id'=> $country_id
         ]);
 
         return redirect()->route('users.index');
@@ -97,7 +101,8 @@ class UserController extends Controller
     {
         $user = User::FindOrFail($id);
         $roles = Role::all();
-        $data = [ 'user'=> $user, 'roles'=> $roles];
+        $countries = Country::all();
+        $data = [ 'user'=> $user, 'roles'=> $roles, 'countries'=>$countries];
         return view('admin.users.edit')->with($data);
 
 
@@ -114,7 +119,7 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
-            'email' => 'required|unique:users',
+            'email' => 'required',
             'role_id'=> 'required'
         ]);
 

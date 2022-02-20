@@ -53,6 +53,22 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+
+                            <label for="country" class="col-md-4 control-label">Country</label>
+                            <div class="col-md-6">
+                                <select name="country_id" >
+                                    @foreach($countries as $country)
+
+                                        <option value="{{ $country->id }}" @if($country->id === $user->country_id) selected @endif> {{ $country->name }}</option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+                        </div>
+
+
+
                         <div class="text-center">
                             <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Update</button>
                         </div>

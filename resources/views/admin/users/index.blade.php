@@ -16,6 +16,7 @@
                         <th>Created At</th>
                         <th>Updated At</th>
                         <th>Role</th>
+                        <th>Country</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
@@ -28,7 +29,8 @@
                             <td>{{$user->email}}</td>
                             <td>{{$user->created_at->diffForHumans()}}</td>
                             <td>{{$user->updated_at->diffForHumans()}}</td>
-                            <td>{{$user->role_id}}</td>
+                            <td>{{$user->role->name}}</td>
+                            <td>{{$user->country->name}}</td>
                             <td><a href="/admin/users/{{$user->id}}/edit" class="btn btn-warning">Edit</a></td>
                             <td>
                                 <form action="/admin/users/{{$user->id}}/delete" method="post">
