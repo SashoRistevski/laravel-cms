@@ -28,6 +28,6 @@ class HomeController extends Controller
 
     public function CheckRole()
     {
-        dd('ova e e rutata');
+
     }
 }
