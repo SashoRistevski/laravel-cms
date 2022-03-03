@@ -31,7 +31,7 @@ Route::group(['middleware'=> 'auth', 'prefix'=> 'admin'], function () {
     Route::post('/users', [\App\Http\Controllers\UserController::class, 'store'])->name('users.store');
     Route::get('/users/{id}/edit', [\App\Http\Controllers\UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{id}', [\App\Http\Controllers\UserController::class, 'update'])->name('users.update');
-    Route::delete('/users/{id}/delete', [\App\Http\Controllers\UserController::class, 'destroy'])->name('users.destroy');
+    Route::delete('/users/{id}/delete', [\App\Http\Controllers\UserController::class, 'destroy'])->name('users.delete');
 
             // CATEGORIES
     Route::resource('/categories', App\Http\Controllers\CategoriesController::class);
@@ -41,6 +41,20 @@ Route::group(['middleware'=> 'auth', 'prefix'=> 'admin'], function () {
     Route::get('/settings', [\App\Http\Controllers\SettingController::class, 'index'])->name('settings.index');
     Route::get('/settings/create', [\App\Http\Controllers\SettingController::class, 'create'])->name('settings.create');
     Route::post('/settings', [\App\Http\Controllers\SettingController::class, 'store'])->name('settings.store');
+    Route::get('/settings/{id}/edit', [\App\Http\Controllers\SettingController::class, 'edit'])->name('settings.edit');
+    Route::put('/settings/{id}', [\App\Http\Controllers\SettingController::class, 'update'])->name('settings.update');
+    Route::delete('/settings/{id}/delete', [\App\Http\Controllers\SettingController::class, 'destroy'])->name('settings.delete');
+
+    // PRODUCTS
+    Route::get('/products', [\App\Http\Controllers\ProductController::class, 'index'])->name('products.index');
+    Route::get('/products/create', [\App\Http\Controllers\ProductController::class,'create'])->name('products.create');
+    Route::post('/products', [\App\Http\Controllers\ProductController::class, 'store'])->name('products.store');
+    Route::get('/products/{id}/edit', [\App\Http\Controllers\ProductController::class, 'edit'])->name('products.edit');
+    Route::get('/products/{id}', [\App\Http\Controllers\ProductController::class, 'show'])->name('products.show');
+    Route::put('/products/{id}', [\App\Http\Controllers\ProductController::class, 'update'])->name('products.update');
+    Route::delete('/products/{id}/delete', [\App\Http\Controllers\ProductController::class, 'destroy'])->name('products.delete');
+
+
 
 });
 

@@ -17,6 +17,8 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+
+                    <h5>Go to <a href="/admin/users">Dashboard</a></h5>
                 </div>
             </div>
         </div>
